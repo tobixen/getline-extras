@@ -47,8 +47,8 @@ opener = urllib2.build_opener()
 opener.addheaders.append(('Cookie', 'session='+os.environ['GETLINE_COOKIE']))
 while True:
     d1 = time.time()
-    with opener.open("https://getline.in/api/v1/friends/") as f:
-        d2 = time.time()
-        obj.report(f=f)
-        ## sleep 200 times as long as we waited for the response, but minimum 10 seconds and maximum 600 seconds
-        time.sleep(max(min(600,200*(d2-d1)),10))
+    f = opener.open("https://getline.in/api/v1/friends/")
+    d2 = time.time()
+    obj.report(f=f)
+    ## sleep 200 times as long as we waited for the response, but minimum 10 seconds and maximum 600 seconds
+    time.sleep(max(min(600,200*(d2-d1)),10))
