@@ -27,11 +27,12 @@ class DataComparator:
     def report(self, changeset=None, f=None):
         if (changeset is None) and (f is not None):
             changeset = self.iterate(f)
-        if changeset:
+        significants = [k for k in changeset if abs(changeset[k] > 100000)]
+        if significants:
             print time.strftime('%F %H:%M:%S')
             print "DELTA INVESTMENTS:"
             try:
-             for c in changeset:
+             for c in significants:
                 print "%16s: %+.4f" % (c, float(changeset[c])/10**8)
             except:
                 import pdb; pdb.set_trace()
