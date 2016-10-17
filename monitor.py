@@ -20,6 +20,8 @@ class DataComparator:
             for i in prev_:
                 changeset[i[0]] = -i[1]
             for i in new_:
+                if not i[0] in changeset:
+                    changeset[i[0]] = 0
                 changeset[i[0]] += i[1]
         self.prev = investments
         return changeset
