@@ -27,7 +27,7 @@ class DataComparator:
     def report(self, changeset=None, f=None):
         if (changeset is None) and (f is not None):
             changeset = self.iterate(f)
-        significants = [k for k in changeset if abs(changeset[k] > 100000)]
+        significants = [k for k in changeset if abs(changeset[k]> > 400000]
         if significants:
             print time.strftime('%F %H:%M:%S')
             print "DELTA INVESTMENTS:"
