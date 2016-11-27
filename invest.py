@@ -11,3 +11,4 @@ def invest(user_id, rate, limit):
         limit = int(limit)
     return requests.put('https://getline.in/api/v1/friends/%s/' % user_id, auth=auth, data = {'limit': limit, 'interest': rate})
 
+
