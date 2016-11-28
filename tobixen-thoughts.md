@@ -21,10 +21,21 @@ Not all of those definitions may have practical implications for getline.  Some 
 * **total** - often we're implicitly summing together everything for a particular borrower (or a particular lender).  We may want to prefix the amounts with "total" to make it explicit.  I.e. "total amount owed by borrower A"
 * **site-total** - the word "total" may also mean that we're summing over the whole site.  We should remember to be explicit on this too.
 * **amount owed** - full amount the borrower should pay back.  Interest is always calculated on the amount owed.  Amount owed = principal owed + interests owed.
-* **principal owed** - amount the borrower took out when borrowing the loan, that is still not paid back.  Principal owed will be unchanged if the borrower deposits less than the interests owed, and will be reduced if the borrower deposits more than the interests owed.  Principal will grow 
+* **principal owed** - amount the borrower took out when borrowing the loan, that is still not paid back.  Principal owed will be unchanged if the borrower deposits less than the interests owed, and will be reduced if the borrower deposits more than the interests owed.  Principal will never grow, except when borrower withdraws more funds
 * **interests owed** - amount the lender will be earning if the borrower will deposit.  This is a "virtual" profit, it's not real unless the borrower actually pays back the amount owed.  Interest is also calculated on interests owed (compounded interests).  Whenever the 
 * **interests earned** - interests that have been paid back.  Whenever a borrower deposits, interests paid back are considered as a real profit to the lender.  Note that the lender will still be at a loss if the borrower stops depositing.
-* **individual credit line** - the minimum of funds available in the investors wallet and 
+* **individual credit line** - the minimum of the funds available in the investors wallet and the limit set by the lender
+* **hard limit** - the absolute maximum the borrower can owe to the individual lender.  Today a lender can only set the hard limit.
+* **soft limit** - the maximum principal a lender wishes to borrow to a borrower.
+* **burnout** - number of days (everything else equal) that interests can accure on a loan without hitting any of the individual hard limits.
+* **available balance** - balance that can be withdrawn without taking up a loan.  Backed by real bitcoins.
+* **available for withdrawal** - available balance plus available credit line
 
+# Suggestions for getline 3
 
+## On interest calculation
 
+Some principles:
+
+* All interest calculations for individual flexible loans should be done independently.  (Currently there is a dependency; there is a de-facto flow of available funds from the lender(s) with highest interest to the lenders with less interest).
+* Added interest is "virtual" money; it's simply balance moved from the borrower to the lender, it does not need to be backed by bitcoins.  (Currently interests have to be backed by available balance).
