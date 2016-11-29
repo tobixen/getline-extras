@@ -1,5 +1,8 @@
 (*This is work in process*)
 
+* auto-gen TOC:
+{:toc}
+
 # Definitions and concepts
 
 Not all of those definitions may have practical implications for getline.  Some of them may still be important for the borrowers and lenders to know i.e. for taxation purposes.
