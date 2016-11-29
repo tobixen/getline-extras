@@ -97,3 +97,16 @@ The 35-day-counter for expected partial repayment will continue running, but the
 
 This is just a special case of the above.  After the deposit, the burnout counter is reset, and the individual amounts owed equals the individual principals.  The 35-day-counter is still ticking though.
 
+### Deposit amount is higher than interest owed
+
+(Work in progress)
+
+#### Honoring reduced soft rates
+
+When the interest owed is paid down, the next priority is to bail out lenders that wants to get out of the loan (or who wants to reduce their stake).
+
+Whom to prioritize?  If many lenders wants to get out from a loan, it means they have some doubts in the borrower.  Borrower may be in financial troubles.  It's paramount that we reduce the burden as much as possible.  It would be in the borrowers best interest to start by getting rid of the highest-interest-lenders (and this may also incentivize the borrower to pay back as much and as soon as possible), but at the other hand we also want to intencivize lenders to give lower rate in such case - not the highest possible rate.  Suggestion for a compromise: split the (remaining) deposit in two, 50% of the deposit will be used to bail out the lenders with lowest interest rate, and 50% of the deposit will be used to bail out the lendes with highest interest rate.
+
+#### Bailing out the highest-interest lenders
+
+Whatever is left is used on bailing out the highest-interest lenders (in the borrowers interest to get rid of those)
