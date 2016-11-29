@@ -15,6 +15,8 @@ Not all of those definitions may have practical implications for getline.  Some 
 * **flexible loan** aka **flex-loan** - borrower can withdraw funds whenever (as long as he's backed by lenders with available balance) and deposit whenever, a withdrawal efficiently means to take up a loan, and a deposit is automatically considered as a payback.  A flex-loan should still have minimum repayment terms.  (Those terms may be hard coded globally in getline, or they may be set individually by each borrower).
 * **credit line** - available funds for a flex-loan
 * **overcommitted credit line** - if an investor has set limits for several potential borrowers and has available balance in the wallet, the credit line is said to be overcommitted.
+* **defaulted loan** - a loan that is most likely never going to be repaid.  The full amount owed is considered a loss for the lenders.  We stop calculating interests.
+* **ghost repayments** - repayments on a loan that has defaulted.  Since we've already counted the full loan as a loss, every repayment should has to be considered as pure profit for the lenders.
 
 ## Amounts
 * **individual** - most of the amount listed can refer to a specific borrower-lender-pair.  We may want to prefix the amounts with "individual" to emphasize this.  I.e. **individual amount owed by borrower A to lender B**.
@@ -56,6 +58,8 @@ If a borrower is unable or unwilling to pay and some borrowers are capable to ba
 
 The interest rate the borrower pays should never become bigger than what the borrower originally approved.  It can be reduced during the loan term, if more lenders joins in, or if existing lenders decides to reduce the rate.  (this may perhaps be used as an opportunity for lenders that has wished a lower soft-limit to withdraw partially or fully from the loan).
 
+I will assume the constants "35 days", "125 days", and "installments twice the amount of interests owed" as the decided-upon configuration in the rest of this document, though the details may be adjusted.
+
 ## Taking up a bigger flex-loan
 
 Increasing the flex-loan efficiently means replacing the existing loan with a new loan.  Algorithmically, the end-result should be the same as if the borrower had deposited the full amount owed, and then withdrawn a new and bigger loan.
@@ -71,6 +75,14 @@ It may seem counter-intuitively that lenders "earn" from borrower taking up more
 
 ## Partial deposit
 
+### Resetting the 35-day counter
+
+The "minimum repayment plan" involves the borrower to pay twice as much as the interest owed every 35th day.  However, the devil is in the details ...
+
+Alternative 1: When the loan is established, a repayment target is set; interests for 35 days is calculated and subtracted from the principal; within 35 days the principal should be lower or equal to this repayment target.  Whenever the repayment target is reached, the counter is reset and a new repayment target is set.  Disadvantage: the repayment plan depends on how much is deposited; the borrower may be incentivized to strategically postpone a deposit as long as possible to get a longer repayment period, borrower may also be incentivized not to deposit too much.
+
+Alternative 2: When the loan is established, a "minimum repayment plan" is presented for the borrower, with 35 days between each installment and the maximum remaining principal calculated from the start.  Plan stays static, if the borrower does a big deposit early on, then it gives breathing room for a long time forward.  (I think we should still demand the owed interests to be paid down within 35 days, even though the borrower is months ahead of the initial repayment plan).  Disadvantages: for someone wanting to do monthly deposits, the repayment plan may look ugly since there is no fixed day of month where we expect a repayment.  more algorithmic complexity, eventually more state to the database.
+
 ### Deposit amount lower than interests owed
 
 The deposit is distributed weighted by interest rate to all lenders.
@@ -79,6 +91,9 @@ This means the individual burnout counters will still be the same after the repa
 
 The lenders are rightly intencivized to put high interest rates in order to earn high interest.  Today one is also intencivized to put high interest rates in order to get prioritized when the borrower deposits money.
 
-The 35-day-counter will continue running.
+The 35-day-counter for expected partial repayment will continue running, but the amount required will be less (the owed loan balance we'd require after a minimum deposit will stay the same).
 
 ### Deposit amount equal interest owed
+
+This is just a special case of the above.  After the deposit, the burnout counter is reset, and the individual amounts owed equals the individual principals.  The 35-day-counter is still ticking though.
+
