@@ -8,6 +8,7 @@ Not all of those definitions may have practical implications for getline.  Some 
 * **investor** - someone depositing money into getline and yielding credit lines to potential borrowers
 * **lender** - an investor that has lended out money
 * **borrower** - someone that owes money to lenders
+* **reputation** - getline 2 doesn't have any kind of reputational scoring system, and probably getline 3 also shouldn't have it.  In this document, "reputation" is used either to describe factual information displayed about a user (automated warnings if the user has been late, are late on other platforms, graphs displaying performance, etc), user comments and the impression potential investors have on a potential borrower.
 
 ## Loans
 * **loan** - the word may be a bit overloaded, sometimes "loan" is used for "fixed loan", sometimes "loan" is used for "amount owed".  Sometimes "a loan" is used for everything a borrower owes to all the lenders, other times only about the part owed to one lender.
@@ -123,9 +124,11 @@ Whatever is left is used on bailing out the highest-interest lenders (in the bor
 
 ## Calculation of interest on an unused credit line
 
+The interest used when counting is always the rate given by the potential borrower, investor has no say on it.  The interest given is to be seen as an incentive for the investor to keep available funds in the getline wallet and to give out lines to potential borrowers, even when those potential borrowers don't need to take up a loan.
+
 If a potential borrower has available funds, the interests are paid immediately daily to the investor, and is counted as profit for the investor.  If there is no available funds, then ... TODO: what?  Consider it as a new loan taken?  And count interessts on said loan?
 
-For the interest to count, the credit line must have been available for a full 24 hours (otherwise an attacker may easily set up a script yielding a relatively risk-free credit line just before midnight and removing it again some few seconds later)
+For the interest to count, the credit line must have been available for a full 24 hours (otherwise an attacker may easily set up a script yielding a relatively risk-free credit line just before midnight and removing it again some few seconds later).  Similarly, we may need protection against the potential borrower temporarily reducing the interest rate just before midnight (though, probably less of a problem as the reputational damage can be real).
 
 An investor can earn interest multiple times on overcommitted credit lines.
 
