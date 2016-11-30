@@ -145,5 +145,5 @@ Say, a new lender wants to joins the party and puts a lower interest rate on a b
 If comparing this to the borrower immediately depositing the credit line offered by the new borrower and then immediately withdrawing the same money, keeping the balance intact - there are some notable differences:
 * We may consider to honor wishes from other lenders on increased interest rate or reduced wish-limit, but eventually the new APR should not grow.
 * Obviously, depositing and then immediately withdrawing the same amount may fail due to lenders that have reduced their wish-limits; a new lender joining the party should not fail.
-* The 35-day countdown should not be affected
-* The burnout should (probably) not be affected.
+* The 35-day countdown should not be affected (but if the new lender contributes with significant funds, the borrower may reset the counter by increasing the loan)
+* The burnout should (probably) not be affected (but if the new lender contributes with significant funds, the borrower may reset the counter by increasing the loan)
