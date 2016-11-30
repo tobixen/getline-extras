@@ -137,3 +137,13 @@ If a borrower has more credit lines than what he's willing to pay for, the credi
 If multiple credit lines have same interest rate, the less overcommitted line will be prioritized.
 
 Last resort; if there are more credit lines with same interest rate and same overcommitment rate, the interests paid are split on the remaining credit lines.
+
+## New lender joining in, outcompeting existing lenders
+
+Say, a new lender wants to joins the party and puts a lower interest rate on a borrower than what the existing lenders are getting out from the flex-loan.  The new lender should instantly be included in the flex-loan.  This is how it works in getline 2.0, and it should continue working like that in getline 3.0.
+
+If comparing this to the borrower immediately depositing the credit line offered by the new borrower and then immediately withdrawing the same money, keeping the balance intact - there are some notable differences:
+* We may consider to honor wishes from other lenders on increased interest rate or reduced wish-limit, but eventually the new APR should not grow.
+* Obviously, depositing and then immediately withdrawing the same amount may fail due to lenders that have reduced their wish-limits; a new lender joining the party should not fail.
+* The 35-day countdown should not be affected
+* The burnout should (probably) not be affected.
