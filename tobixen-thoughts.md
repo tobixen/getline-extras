@@ -25,7 +25,7 @@ Not all of those definitions may have practical implications for getline.  Some 
 * **amount owed** - full amount the borrower should pay back.  Interest is always calculated on the amount owed.  Amount owed = principal owed + interests owed.
 * **principal owed** - amount the borrower took out when borrowing the loan, that is still not paid back.  Principal owed will be unchanged if the borrower deposits less than the interests owed, and will be reduced if the borrower deposits more than the interests owed.  Principal will never grow, except when borrower withdraws more funds
 * **interests owed** - amount the lender will be earning if the borrower will deposit.  This is a "virtual" profit, it's not real unless the borrower actually pays back the amount owed.  Interest is also calculated on interests owed (compounded interests).  Whenever the 
-* **interests earned** - interests that have been paid back.  Whenever a borrower deposits, interests paid back are considered as a real profit to the lender.  Note that the lender will still be at a loss if the borrower stops depositing.
+* **interests earned** - interests that have been paid back.  Whenever a borrower deposits, interests paid back are considered as a real profit to the lender.  Note that the lender may still be at a loss if the borrower stops depositing.
 * **individual credit line** - the minimum of the funds available in the investors wallet and the limit set by the lender
 * **hard limit** - the absolute maximum the borrower can owe to the individual lender.  Today a lender can only set the hard limit.
 * **soft limit** (or maybe **wish limit**?)- the maximum principal a lender wishes to borrow to a borrower.  Can be increased or reduced any time.
