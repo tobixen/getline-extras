@@ -14,7 +14,7 @@ Not all of those definitions may have practical implications for getline.  Some 
 * **loan** - the word may be a bit overloaded, sometimes "loan" is used for "fixed loan", sometimes "loan" is used for "amount owed".  Sometimes "a loan" is used for everything a borrower owes to all the lenders, other times only about the part owed to one lender.
 * **fixed loan** - the borrower and lender have agreed on fixed terms.  Funds cannot be withdrawn by the lender during the borrowing period, even if the funds are available in the borrowers wallet.  Borrower pays full interests on the loan in the borrowing period, even if he doesn't withdraw the funds.
 * **flexible loan** aka **flex-loan** - borrower can withdraw funds whenever (as long as he's backed by lenders with available balance) and deposit whenever, a withdrawal efficiently means to take up a loan, and a deposit is automatically considered as a payback.  A flex-loan should still have minimum repayment terms.  (Those terms may be hard coded globally in getline, or they may be set individually by each borrower).
-* **credit line** - available funds for a flex-loan
+* **credit line** - available funds for a flex-loan.
 * **overcommitted credit line** - if an investor has set limits for several potential borrowers and has available balance in the wallet, the credit line is said to be overcommitted.
 * **defaulted loan** - a loan that is most likely never going to be repaid.  The full amount owed is considered a loss for the lenders.  We stop calculating interests.
 * **ghost repayments** - repayments on a loan that has defaulted.  Since we've already counted the full loan as a loss, every repayment should has to be considered as pure profit for the lenders.
@@ -130,7 +130,7 @@ If a potential borrower has available funds, the interests are paid immediately 
 
 For the interest to count, the credit line must have been available for a full 24 hours (otherwise an attacker may easily set up a script yielding a relatively risk-free credit line just before midnight and removing it again some few seconds later).  Similarly, we may need protection against the potential borrower temporarily reducing the interest rate just before midnight (though, probably less of a problem as the reputational damage can be real).
 
-An investor can earn interest multiple times on overcommitted credit lines.
+An investor can earn interest multiple times on overcommitted credit lines.  If an investor gives a credit line to a sufficient amount of potential borrowers and ensures there always is available funds in the wallet, it should even be possible to earn more money on the credit line than on the lendings.  Consider that the the investor is taking a risk by giving out a credit line; A scammer may run away with the funds at once, a legitimate borrower may decide he doesn't need the line.  Overcommitment is good, a massive amount of investors heavily overcommiting their credit lines and doing their best to keep available balance in their wallets is the only way we can give potential borrowers a predictable credit line.
 
 If a borrower has more credit lines than what he's willing to pay for, the credit lines with lowest interest will be prioritized.
 
