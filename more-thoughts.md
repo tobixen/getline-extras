@@ -1,22 +1,34 @@
-# On versioning
+# Getline 2.0 vs Getline 3.0
 
 Getline 3.0 will be a radical ground-up redesign of the borrowing/lending algorithms, and will in the start run parallell with getline 2.0
 
 We'll still be putting more features into getline 2.0.
 
-# On multi-wallet
+# Bitcoin fees and the missing 1 BTC
 
-We'll split up "account" and "wallet", so that it's possible to have separate lending and borrowing "wallets" on one user account.  This will also allow one user to have wallets denominated in multiple currencies.
+Getline has been operating without any fees on neither deposits nor withdrawals, and is now also operating with a cold/hot wallet system that is exaggerating the costs.  Getline has paid 1 BTC in fees so far, because of this 1 BTC is currently missing from the getline wallet, frequently causing the max withdrawal limit to be lower than the bitcoins that should have been available for a borrower or a lender.
+
+We will need to start pushing the transactional costs over on the customers, and it's needed to deduct 1 BTC from the revenues and push it back into the hot wallet.
+
+# Cold wallet vs hot wallet
+
+Getline is currently having a cold/hot-wallet structure where all deposits comes into "cold wallet", and has to be sent from the "cold" wallet to the "hot" wallet.  Since the actual non-borrowed funds are usually quite low, the bitcoin turnover is high and the waiting time for transactions to be confirmed can be high, this also causes a liquidity problem, people want to withdraw but the hot wallet is empty.
+
+Since the amount of bitcoins held by getline is fairly low compared to the transactional volume, the cold-wallet scheme is not so important currently, it's needed to scrap it and let all deposits be immediately available for withdrawals.
+
+# Multi-wallet vs multi-account
+
+Today some of the users have multiple accounts for technical reasons, i.e. one account for borrowing and one account for lending.  We'll split up "account" and "wallet", so that it's possible to have separate lending and borrowing "wallets" on one user account.  This will also allow one user to have wallets denominated in multiple currencies.
 
 # Currencies
 
-Getline is bitcoin-only on the deposit and withdrawal side; altcoins may be considered if the bitcoin fees gets too large - but getline is strictly not a fiat platform.
+Getline is bitcoin-only on the deposit and withdrawal side; altcoins may be considered if the bitcoin fees gets too large - but getline is strictly a no-fiat platform.
 
 However, we define units like "GetlineEUR", where 1 GetlineEUR is defined to be the amount of millibitcoins one would get when applying the euro rate from bitcoinaverage.com.
 
 # Currency exchange
 
-Sending i.e. from a bitcoin wallet to a getlineEUR wallet will be possible, but penalized with a commission, as we don't want people to be speculating on the ever-changing rates (specifically, we don't want to lose money to customers that knows more about the market than bitcoinaverage).  In the beginning we may want to keep this commission high (i.e. 1.5%).  The commission can be lowered with time.  Ideally it should be lower than 0.5%.
+Sending i.e. from a bitcoin wallet to a getlineEUR wallet will be possible, but a commission will be applied.  We don't want people to be speculating on the ever-changing rates (specifically, we don't want to lose money to customers that knows more about the market than bitcoinaverage).  In the beginning we may want to keep this commission high (i.e. 1.5%).  The commission can be lowered with time.  Ideally it should be lower than 0.5%.
 
 # NIRP
 
