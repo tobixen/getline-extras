@@ -1,8 +1,8 @@
-# Getline 2.0 vs Getline 3.0
+# Getline 2 vs Getline 3
 
-Getline 3.0 will be a radical ground-up redesign of the borrowing/lending algorithms, and will in the start run parallell with getline 2.0
+Getline 3 will be a radical ground-up redesign of the borrowing/lending algorithms, and will in the start run parallell with getline 2
 
-We'll still be putting more features into getline 2.0.
+We'll still be putting more features into getline 2
 
 # Bitcoin fees and the missing 1 BTC
 
