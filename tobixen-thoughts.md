@@ -14,7 +14,7 @@ Not all of those definitions may have practical implications for getline.  Some 
 * **loan** - the word may be a bit overloaded, sometimes "loan" is used for "fixed loan", sometimes "loan" is used for "amount owed".  Sometimes "a loan" is used for everything a borrower owes to all the lenders, other times only about the part owed to one lender.
 * **fixed loan** - the borrower and lender have agreed on fixed terms.  Funds cannot be withdrawn by the lender during the borrowing period, even if the funds are available in the borrowers wallet.  Borrower pays full interests on the loan in the borrowing period, even if he doesn't withdraw the funds.
 * **flexible loan** aka **flex-loan** - borrower can withdraw funds whenever (as long as he's backed by lenders with available balance) and deposit whenever, a withdrawal efficiently means to take up a loan, and a deposit is automatically considered as a payback.  A flex-loan should still have minimum repayment terms.  (Those terms may be hard coded globally in getline, or they may be set individually by each borrower).
-* **credit line** - available funds for a flex-loan
+* **credit line** - available funds for a flex-loan.
 * **overcommitted credit line** - if an investor has set limits for several potential borrowers and has available balance in the wallet, the credit line is said to be overcommitted.
 * **defaulted loan** - a loan that is most likely never going to be repaid.  The full amount owed is considered a loss for the lenders.  We stop calculating interests.
 * **ghost repayments** - repayments on a loan that has defaulted.  Since we've already counted the full loan as a loss, every repayment should has to be considered as pure profit for the lenders.
@@ -27,8 +27,8 @@ Not all of those definitions may have practical implications for getline.  Some 
 * **principal owed** - amount the borrower took out when borrowing the loan, that is still not paid back.  Principal owed will be unchanged if the borrower deposits less than the interests owed, and will be reduced if the borrower deposits more than the interests owed.  Principal will never grow, except when borrower withdraws more funds
 * **interests owed** - amount the lender will be earning if the borrower will deposit.  This is a "virtual" profit, it's not real unless the borrower actually pays back the amount owed.  Interest is also calculated on interests owed (compounded interests).
 * **interests earned** - interests that have been paid back.  Whenever a borrower deposits, interests paid back are considered as a real profit to the lender.  Note that the lender will still be at a loss if the borrower stops depositing.  In getline 2.0 the lower-interest lenders actually earns profit every day, this is deducted from the available balance of the higher-interest lender(s)
-* **site fees owed** - part of the interests owed by a borrower that goes as fees to getline.
-* **site fees paid** - actual getline profit, generated when the borrower deposits money
+* **site fees owed** - part of the interests owed by a borrower that goes as fees to getline.  Note that as of getline 2.0, site fees are taken from the lenders available funds
+* **site fees paid** - actual getline profit, probably generated when the borrower deposits money in getline 3.0, generated daily in getline 2.0.
 * **individual credit line** - the minimum of the funds available in the investors wallet and the limit set by the lender
 * **hard limit** - the absolute maximum the borrower can owe to the individual lender.  Today a lender can only set the hard limit.
 * **soft limit** (or maybe **wish limit**?)- the maximum principal a lender wishes to borrow to a borrower.  Can be increased or reduced any time.
@@ -130,10 +130,20 @@ If a potential borrower has available funds, the interests are paid immediately 
 
 For the interest to count, the credit line must have been available for a full 24 hours (otherwise an attacker may easily set up a script yielding a relatively risk-free credit line just before midnight and removing it again some few seconds later).  Similarly, we may need protection against the potential borrower temporarily reducing the interest rate just before midnight (though, probably less of a problem as the reputational damage can be real).
 
-An investor can earn interest multiple times on overcommitted credit lines.
+An investor can earn interest multiple times on overcommitted credit lines.  If an investor gives a credit line to a sufficient amount of potential borrowers and ensures there always is available funds in the wallet, it should even be possible to earn more money on the credit line than on the lendings.  Consider that the the investor is taking a risk by giving out a credit line; A scammer may run away with the funds at once, a legitimate borrower may decide he doesn't need the line.  Overcommitment is good, a massive amount of investors heavily overcommiting their credit lines and doing their best to keep available balance in their wallets is the only way we can give potential borrowers a predictable credit line.
 
 If a borrower has more credit lines than what he's willing to pay for, the credit lines with lowest interest will be prioritized.
 
 If multiple credit lines have same interest rate, the less overcommitted line will be prioritized.
 
 Last resort; if there are more credit lines with same interest rate and same overcommitment rate, the interests paid are split on the remaining credit lines.
+
+## New lender joining in, outcompeting existing lenders
+
+Say, a new lender wants to joins the party and puts a lower interest rate on a borrower than what the existing lenders are getting out from the flex-loan.  The new lender should instantly be included in the flex-loan.  This is how it works in getline 2.0, and it should continue working like that in getline 3.0.
+
+If comparing this to the borrower immediately depositing the credit line offered by the new borrower and then immediately withdrawing the same money, keeping the balance intact - there are some notable differences:
+* We may consider to honor wishes from other lenders on increased interest rate or reduced wish-limit, but eventually the new APR should not grow.
+* Obviously, depositing and then immediately withdrawing the same amount may fail due to lenders that have reduced their wish-limits; a new lender joining the party should not fail.
+* The 35-day countdown should not be affected (but if the new lender contributes with significant funds, the borrower may reset the counter by increasing the loan)
+* The burnout should (probably) not be affected (but if the new lender contributes with significant funds, the borrower may reset the counter by increasing the loan)
