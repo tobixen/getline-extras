@@ -36,6 +36,8 @@ When a user is holding getlineEUR, which is backed up by bitcoins held by Getlin
 
 To discourage users from holding large amounts of getlineEUR we'll apply a negative interest on the accounts bound to fiat.  It won't be big, maybe 5% APR.
 
+This only applies to the non-invested positive balance, and only for balance held in fiat.
+
 # Bonus for borrowers repaying the line
 
 Currently we're taking a quite large cut of the interest paid.  We could be giving parts of this back to the borrower when the borrower successfully repays the full line.
