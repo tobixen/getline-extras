@@ -98,7 +98,7 @@ Alternative 2: When the loan is established, a "minimum repayment plan" is prese
 
 The deposit is distributed weighted by interest rate to all lenders.
 
-This means the individual burnout counters will still be the same after the repayment.
+This means all the individual burnout counters will be equal after the repayment.
 
 The lenders are rightly intencivized to put high interest rates in order to earn high interest.  Today one is also intencivized to put high interest rates in order to get prioritized when the borrower deposits money.
 
@@ -126,7 +126,7 @@ Whatever is left is used on bailing out the highest-interest lenders (in the bor
 
 The interest used when counting is always the rate given by the potential borrower, investor has no say on it.  The interest given is to be seen as an incentive for the investor to keep available funds in the getline wallet and to give out lines to potential borrowers, even when those potential borrowers don't need to take up a loan.
 
-If a potential borrower has available funds, the interests are paid immediately daily to the investor, and is counted as profit for the investor.  If there is no available funds, then ... TODO: what?  Consider it as a new loan taken?  And count interessts on said loan?
+If a potential borrower has available funds, the interests are paid immediately daily to the investor, and is counted as profit for the investor.  If there is no available funds, then ... TODO: what?  Consider it as a new loan taken?  And count interests on said loan?
 
 For the interest to count, the credit line must have been available for a full 24 hours (otherwise an attacker may easily set up a script yielding a relatively risk-free credit line just before midnight and removing it again some few seconds later).  Similarly, we may need protection against the potential borrower temporarily reducing the interest rate just before midnight (though, probably less of a problem as the reputational damage can be real).
 
