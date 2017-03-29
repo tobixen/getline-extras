@@ -48,4 +48,4 @@ Investors should have a button for withdrawing from a borrower automatically - e
 
 # Getline-tokens
 
-We can sell getline tokens to our customers.  A getline token will appreciate in value based on some well-defined metrics dependent on our revenue, for instance, 5% of all interests paid can go to the token holders (leaving 25% for Getline).  (For legal reasons it's difficult to sell actual shares in the company this way, but such tokens should work out.  One of the point is to incentivize token-holders to promote getline).
+We can sell getline tokens to our customers.  A getline token will appreciate in value based on some well-defined metrics dependent on our revenue, for instance, 5% of all interests paid can go to the token holders (leaving 25% for Getline).  (For legal reasons it's difficult to sell actual shares in the company this way, but such tokens should work out.  The points are to incentivize people to recruit people to the environment as well as to raise capital for covering development costs).
